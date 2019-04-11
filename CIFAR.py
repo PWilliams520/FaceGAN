@@ -353,7 +353,6 @@ if __name__ == '__main__':
             data = data.reshape((n * data.shape[1], n * data.shape[3]) + data.shape[4:])
             return data
 
-
         img = vis_square(generated_images)
         if not os.path.exists(path):
             os.makedirs(path)
