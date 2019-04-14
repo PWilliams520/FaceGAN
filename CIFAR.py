@@ -341,6 +341,7 @@ if __name__ == '__main__':
         generated_images = np.asarray((generated_images * 127.5 + 127.5).astype(np.uint8))
 
 
+
         def vis_square(data, padsize=1, padval=0):
 
             # force the number of filters to be square
