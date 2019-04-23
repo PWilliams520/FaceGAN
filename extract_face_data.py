@@ -1,5 +1,6 @@
 import os
 import tensorflow as tf
+from mlxtend.data import loadlocal_mnist
 
 # def list_files(dir):
 #     r = []

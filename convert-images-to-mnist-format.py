@@ -4,25 +4,29 @@ from array import *
 from random import shuffle
 
 # Load from and save to
-Names = [['./training-images','train'], ['./test-images','test']]
+Names = [['training-images','train'], ['test-images','test']]
 
 for name in Names:
 
     data_image = array('B')
     data_label = array('B')
+    print(os.listdir(name[0])[1:])
 
     FileList = []
     for dirname in os.listdir(name[0])[1:]: # [1:] Excludes .DS_Store from Mac OS
         path = os.path.join(name[0],dirname)
         for filename in os.listdir(path):
-            if filename.endswith(".png"):
+            # print(os.listdir(path))
+            if filename.endswith(".jpeg"):
                 FileList.append(os.path.join(name[0],dirname,filename))
 
     shuffle(FileList) # Usefull for further segmenting the validation set
 
     for filename in FileList:
+        # print(filename.split('/')[2].split("_")[0][5:])
 
-        label = int(filename.split('/')[2])
+        label = int(filename.split('/')[2].split("_")[0][5:])
+
 
         Im = Image.open(filename)
 
