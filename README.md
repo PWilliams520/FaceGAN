@@ -14,6 +14,6 @@ Color CIFAR images were generated from the model in this repository: https://git
 
 The black and white CIFAR, Fashion-MNIST, and face images were generated using this model from Datacamp, written by Stefan Hosein: https://www.datacamp.com/community/tutorials/generative-adversarial-networks
 
-![png](Images/MNIST/plot_epoch_001_generated.png)
-![png](Images/MNIST/plot_epoch_020_generated.png)
-![png](Images/MNIST/plot_epoch_100_generated.png)
+![png](images/MNIST/plot_epoch_001_generated.png)
+![png](images/MNIST/plot_epoch_020_generated.png)
+![png](images/MNIST/plot_epoch_100_generated.png)
