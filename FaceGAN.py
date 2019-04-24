@@ -23,14 +23,6 @@ np.random.seed(10)
 # The dimension of our random noise vector.
 random_dim = 100
 
-def grayscale(data, dtype='float32'):
-    # luma coding weighted average in video systems
-    r, g, b = np.asarray(.3, dtype=dtype), np.asarray(.59, dtype=dtype), np.asarray(.11, dtype=dtype)
-    rst = r * data[:, :, :, 0] + g * data[:, :, :, 1] + b * data[:, :, :, 2]
-    # add channel dimension
-    rst = np.expand_dims(rst, axis=3)
-    return rst
-
 def load_minst_data():
     # load the data
     x_train, y_train = loadlocal_mnist(
