@@ -1,3 +1,5 @@
+# Code from https://github.com/gskielian/JPG-PNG-to-MNIST-NN-Format/blob/master/convert-images-to-mnist-format.py
+
 import os
 from PIL import Image
 from array import *
@@ -6,33 +8,33 @@ from random import shuffle
 # Load from and save to
 Names = [['training-images','train'], ['test-images','test']]
 
+total = 0
 for name in Names:
 
     data_image = array('B')
     data_label = array('B')
-    print(os.listdir(name[0])[1:])
-
     FileList = []
     for dirname in os.listdir(name[0])[1:]: # [1:] Excludes .DS_Store from Mac OS
         path = os.path.join(name[0],dirname)
         for filename in os.listdir(path):
-            # print(os.listdir(path))
-            if filename.endswith(".jpeg"):
+            if filename.endswith(".jpg"):
                 FileList.append(os.path.join(name[0],dirname,filename))
 
     shuffle(FileList) # Usefull for further segmenting the validation set
 
     for filename in FileList:
-        # print(filename.split('/')[2].split("_")[0][5:])
 
-        label = int(filename.split('/')[2].split("_")[0][5:])
+        label = int(filename.split("/")[1])
 
 
-        Im = Image.open(filename)
+        Im = Image.open(filename).convert('L')
 
         pixel = Im.load()
 
         width, height = Im.size
+        total += width * height
+        if(width != 100 or height != 100):
+            print(filename, width, height)
 
         for x in range(0,width):
             for y in range(0,height):
@@ -53,10 +55,10 @@ for name in Names:
 
     # additional header for images array
 
-    if max([width,height]) <= 256:
-        header.extend([0,0,0,width,0,0,0,height])
-    else:
-        raise ValueError('Image exceeds maximum size: 256x256 pixels');
+    # if max([width,height]) <= 256:
+    #     header.extend([0,0,0,width,0,0,0,height])
+    # else:
+    #     raise ValueError('Image exceeds maximum size: 256x256 pixels');
 
     header[3] = 3 # Changing MSB for image data (0x00000803)
 

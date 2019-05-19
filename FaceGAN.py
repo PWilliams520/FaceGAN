@@ -1,3 +1,5 @@
+# Initial code adapted from https://www.datacamp.com/community/tutorials/generative-adversarial-networks
+
 import os
 import numpy as np
 import matplotlib.pyplot as plt
@@ -9,8 +11,6 @@ from keras.layers import Input
 from keras.models import Model, Sequential
 from keras.layers.core import Dense, Dropout
 from keras.layers.advanced_activations import LeakyReLU
-from keras.datasets import mnist
-from keras.datasets import fashion_mnist
 from keras.optimizers import Adam
 from keras import initializers
 
@@ -23,7 +23,8 @@ np.random.seed(10)
 # The dimension of our random noise vector.
 random_dim = 100
 
-def load_minst_data():
+# Following function from http://rasbt.github.io/mlxtend/user_guide/data/loadlocal_mnist/#api
+def load_data_from_file():
     # load the data
     x_train, y_train = loadlocal_mnist(
         images_path='train-images-idx3-ubyte',
@@ -34,10 +35,9 @@ def load_minst_data():
         labels_path='test-labels-idx1-ubyte')
     # normalize our inputs to be in the range[-1, 1]
     x_train = (x_train.astype(np.float32) - 127.5)/127.5
-    # convert x_train with a shape of (60000, 28, 28) to (60000, 784) so we have
-    # 784 columns per row
-    # x_train = grayscale(x_train)
-    x_train = x_train.reshape(1932, 10000)
+    # convert x_train with a shape of (7317, 100, 100) to (7317, 10000) so we have
+    # 10000 columns per row
+    x_train = x_train.reshape(7317, 10000)
     return (x_train, y_train, x_test, y_test)
 
 # You will use the Adam optimizer
@@ -112,12 +112,12 @@ def plot_generated_images(epoch, generator, examples=100, dim=(10, 10), figsize=
         plt.subplot(dim[0], dim[1], i+1)
         plt.imshow(generated_images[i], interpolation='nearest', cmap='gray_r')
         plt.axis('off')
-    # plt.tight_layout()
+        # plt.tight_layout()
     plt.savefig('faces_generated_image_epoch_%d.png' % epoch)
 
 def train(epochs=1, batch_size=128):
     # Get the training and testing data
-    x_train, y_train, x_test, y_test = load_minst_data()
+    x_train, y_train, x_test, y_test = load_data_from_file()
     # Split the training data into batches of size 128
     batch_count = x_train.shape[0] // batch_size
 
@@ -134,10 +134,8 @@ def train(epochs=1, batch_size=128):
             noise = np.random.normal(0, 1, size=[batch_size, random_dim])
             image_batch = x_train[np.random.randint(0, x_train.shape[0], size=batch_size)]
 
-            # Generate fake MNIST images
+            # Generate fake Face images
             generated_images = generator.predict(noise)
-            # print(image_batch.shape)
-            # print(generated_images.shape)
             X = np.concatenate([image_batch, generated_images])
 
             # Labels for generated and real data

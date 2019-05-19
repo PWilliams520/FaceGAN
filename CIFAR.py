@@ -1,3 +1,6 @@
+# This code was only used to generate the color CIFAR images in the presentation. It was not altered in any way.
+# Original code from https://github.com/King-Of-Knights/Keras-ACGAN-CIFAR10
+
 # -*- coding: utf-8 -*-
 """
 file: ACGAN - CIFAR10.py
