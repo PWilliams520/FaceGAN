@@ -17,7 +17,7 @@ The black and white CIFAR, Fashion-MNIST, and face images were generated using t
 ![png](images/MNIST/plot_epoch_001_generated.png)
 ![png](images/MNIST/plot_epoch_020_generated.png)
 ![png](images/MNIST/plot_epoch_100_generated.png)
-![jpg](images/Fashion/All_fashion.jpg)
+![jpg](images/Fashion/All_Fashion.jpg)
 ![png](images/Fashion/fashion_generated_image_epoch_20.png)
 ![png](images/Fashion/fashion_generated_image_epoch_100.png)
 ![png](images/Fashion/fashion_generated_image_epoch_1000.png)
